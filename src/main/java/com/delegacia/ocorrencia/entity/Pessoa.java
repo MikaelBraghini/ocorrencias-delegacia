@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Setter
 @ToString
 @EqualsAndHashCode
-public class Agente implements Serializable {
+public class Pessoa implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -21,9 +21,12 @@ public class Agente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String departamento;
+    @Column(nullable = false)
+    private String nome;
 
-    @OneToOne
-    @JoinColumn(name = "id_pessoa", nullable = false)
-    private Pessoa pessoa;
+    @Column(nullable = false)
+    private String cpf;
+
+    @Column(nullable = false)
+    private String rg;
 }
