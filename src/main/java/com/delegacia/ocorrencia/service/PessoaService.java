@@ -20,4 +20,13 @@ public class PessoaService {
         return pessoaRepository.save(pessoa);
     }
 
+    public boolean deletePessoa(long id) {
+        if (pessoaRepository.findById(id).isPresent()) {
+            pessoaRepository.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
 }
