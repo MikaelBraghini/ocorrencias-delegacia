@@ -20,12 +20,12 @@ public class AgenteService {
         return agenteRepository.findAll();
     }
 
-    public String deleteAgente(long id) {
-        if (!agenteRepository.findById(id).isEmpty()) {
+    public boolean deleteAgente(long id) {
+        if (agenteRepository.findById(id).isPresent()) {
             agenteRepository.deleteById(id);
-            return "Agente removido!";
+            return true;
         }else {
-            return "Agente nao encontrado!";
+            return false;
         }
     }
 }

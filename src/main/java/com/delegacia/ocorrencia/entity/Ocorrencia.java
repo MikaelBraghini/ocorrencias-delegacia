@@ -22,6 +22,7 @@ public class Ocorrencia implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Column(columnDefinition = "text")
     private String observacoes;
 
     @Column(name = "data_criacao")

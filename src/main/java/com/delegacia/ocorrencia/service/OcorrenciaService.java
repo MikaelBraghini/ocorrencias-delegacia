@@ -22,7 +22,12 @@ public class OcorrenciaService {
         return ocorrenciaReposity.findAll();
     }
 
-    public void deleteOcorrencia(long id) {
-        ocorrenciaReposity.deleteById(id);
+    public boolean deleteOcorrencia(long id) {
+        if (ocorrenciaReposity.findById(id).isPresent()) {
+            ocorrenciaReposity.deleteById(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 }

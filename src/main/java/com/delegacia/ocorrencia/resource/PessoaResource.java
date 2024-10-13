@@ -3,6 +3,8 @@ package com.delegacia.ocorrencia.resource;
 import com.delegacia.ocorrencia.entity.Pessoa;
 import com.delegacia.ocorrencia.service.PessoaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,12 +16,12 @@ public class PessoaResource {
     private PessoaService pessoaService;
 
     @GetMapping("/listar")
-    public List<Pessoa> listarPessoas() {
-        return pessoaService.listarPessoas();
+    public ResponseEntity<List<Pessoa>> listarPessoas() {
+        return ResponseEntity.status(HttpStatus.OK).body(pessoaService.listarPessoas());
     }
 
     @PostMapping("/adicionar")
-    public Pessoa addPessoa(@RequestBody Pessoa pessoa) {
-        return pessoaService.addPessoa(pessoa);
+    public ResponseEntity<Pessoa> addPessoa(@RequestBody Pessoa pessoa) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(pessoaService.addPessoa(pessoa));
     }
 }

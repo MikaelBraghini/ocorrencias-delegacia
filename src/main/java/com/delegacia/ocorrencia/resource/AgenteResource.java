@@ -16,17 +16,21 @@ public class AgenteResource {
     private AgenteService agenteService;
 
     @PostMapping("/adicionar")
-    public Agente adicionar(@RequestBody Agente agente) {
-        return agenteService.addAgente(agente);
+    public ResponseEntity<Agente> adicionar(@RequestBody Agente agente) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(agenteService.addAgente(agente));
     }
 
     @GetMapping("/listar")
-    public List<Agente> listarAgentes() {
-        return agenteService.listarAgentes();
+    public ResponseEntity<List<Agente>> listarAgentes() {
+        return ResponseEntity.status(HttpStatus.OK).body(agenteService.listarAgentes());
     }
 
     @DeleteMapping("/delete/{id}")
-    public ResponseEntity deleteAgente(@PathVariable long id) {
-        return new ResponseEntity(agenteService.deleteAgente(id), HttpStatus.OK);
+    public ResponseEntity<Object> deleteAgente(@PathVariable long id) {
+        if (agenteService.deleteAgente(id)) {
+            return ResponseEntity.status(HttpStatus.OK).body("Agente removido");
+        } else{
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Agente não encontrado");
+        }
     }
 }
