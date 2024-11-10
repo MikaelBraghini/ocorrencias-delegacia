@@ -29,7 +29,7 @@ public class AgenteResource {
     public ResponseEntity<Object> deleteAgente(@PathVariable long id) {
         if (agenteService.deleteAgente(id)) {
             return ResponseEntity.status(HttpStatus.OK).body("Agente removido");
-        } else{
+        } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Agente não encontrado");
         }
     }

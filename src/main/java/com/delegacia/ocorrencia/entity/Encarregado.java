@@ -5,16 +5,17 @@ import lombok.*;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
-@Table(name = "agente")
+@Table(name = "encarregado")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
 @EqualsAndHashCode
-public class Agente implements Serializable {
+@ToString
+public class Encarregado implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -22,9 +23,11 @@ public class Agente implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private String departamento;
+    private String nome;
 
-    @OneToOne
-    @JoinColumn(name = "id_pessoa", nullable = false)
-    private Pessoa pessoa;
+    @ManyToMany
+    @JoinTable(name = "encarregado_agente",
+            joinColumns = @JoinColumn(name = "id_encarregado"),
+            inverseJoinColumns = @JoinColumn(name = "id_agente", unique = true))
+    private List<Agente> agente;
 }

@@ -7,6 +7,7 @@ import java.io.Serial;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "pessoa")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -24,9 +25,9 @@ public class Pessoa implements Serializable {
     @Column(nullable = false)
     private String nome;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = false)
     private String cpf;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = false)
     private String rg;
 }

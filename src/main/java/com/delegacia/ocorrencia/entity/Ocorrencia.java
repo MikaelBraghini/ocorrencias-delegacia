@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
+@Table(name = "ocorrencia")
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
