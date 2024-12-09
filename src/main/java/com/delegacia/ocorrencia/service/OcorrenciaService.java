@@ -1,7 +1,5 @@
 package com.delegacia.ocorrencia.service;
 
-import com.delegacia.ocorrencia.entity.Agente;
-import com.delegacia.ocorrencia.entity.Encarregado;
 import com.delegacia.ocorrencia.entity.Ocorrencia;
 import com.delegacia.ocorrencia.repositories.OcorrenciaReposity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class OcorrenciaService {
