@@ -36,6 +36,6 @@ public class Ocorrencia implements Serializable {
     private String statusOcorrencia;
 
     @ManyToOne
-    @JoinColumn(name = "id_agente", nullable = false)
+    @JoinColumn(name = "id_agente", nullable = true)
     private Agente agente;
 }

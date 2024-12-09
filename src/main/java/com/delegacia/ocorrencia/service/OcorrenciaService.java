@@ -30,4 +30,15 @@ public class OcorrenciaService {
             return false;
         }
     }
+
+
+    public Ocorrencia alterStatusOcorrencia(Ocorrencia statusOcorrencia) {
+        Ocorrencia ocorrencia = ocorrenciaReposity.findById(statusOcorrencia.getId()).orElseThrow(() -> new RuntimeException("Ocorrencia não encontrada"));
+
+        ocorrencia.setStatusOcorrencia(statusOcorrencia.getStatusOcorrencia());
+        ocorrencia.setDataAtualizacao(new Date(System.currentTimeMillis()));
+
+        return ocorrenciaReposity.save(ocorrencia);
+    }
+
 }

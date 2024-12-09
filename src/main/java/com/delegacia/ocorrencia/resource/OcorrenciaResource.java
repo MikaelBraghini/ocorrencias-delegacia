@@ -29,8 +29,13 @@ public class OcorrenciaResource {
     public ResponseEntity<Object> deleteOcorrencia(@PathVariable long id) {
         if (ocorrenciaService.deleteOcorrencia(id)) {
             return ResponseEntity.status(HttpStatus.OK).body("Ocorrencia removida");
-        }else {
+        } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Ocorrencia não encontrada");
         }
+    }
+
+    @PutMapping("/updateStatus")
+    public ResponseEntity<Ocorrencia> alterOcorrencia(@RequestBody Ocorrencia ocorrencia) {
+        return ResponseEntity.status(HttpStatus.OK).body(ocorrenciaService.alterStatusOcorrencia(ocorrencia));
     }
 }
