@@ -1,36 +1,47 @@
-package com.delegacia.ocorrencia.resource;
+package com.delegacia.ocorrencia.service;
 
+import com.delegacia.ocorrencia.entity.Agente;
+import com.delegacia.ocorrencia.entity.Encarregado;
 import com.delegacia.ocorrencia.entity.Ocorrencia;
-import com.delegacia.ocorrencia.service.OcorrenciaService;
+import com.delegacia.ocorrencia.repositories.OcorrenciaReposity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
-@RestController
-@RequestMapping("/ocorrencia")
-public class OcorrenciaResource {
+@Service
+public class OcorrenciaService {
     @Autowired
-    private OcorrenciaService ocorrenciaService;
+    private OcorrenciaReposity ocorrenciaReposity;
 
-    @PostMapping("/adicionar")
-    public ResponseEntity<Ocorrencia> addOcorrencia(@RequestBody Ocorrencia ocorrencia) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(ocorrenciaService.addOcorrencia(ocorrencia));
+    public Ocorrencia addOcorrencia(Ocorrencia ocorrencia) {
+        ocorrencia.setDataCriacao(new Date(System.currentTimeMillis()));
+        return ocorrenciaReposity.save(ocorrencia);
     }
 
-    @GetMapping("/listar")
-    public ResponseEntity<List<Ocorrencia>> listarOcorrencias() {
-        return ResponseEntity.status(HttpStatus.OK).body(ocorrenciaService.findAll());
+    public List<Ocorrencia> findAll() {
+        return ocorrenciaReposity.findAll();
     }
 
-    @DeleteMapping("/delete/{id}")
-    public ResponseEntity<Object> deleteOcorrencia(@PathVariable long id) {
-        if (ocorrenciaService.deleteOcorrencia(id)) {
-            return ResponseEntity.status(HttpStatus.OK).body("Ocorrencia removida");
-        }else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Ocorrencia não encontrada");
+    public boolean deleteOcorrencia(long id) {
+        if (ocorrenciaReposity.findById(id).isPresent()) {
+            ocorrenciaReposity.deleteById(id);
+            return true;
+        } else {
+            return false;
         }
     }
+
+
+    public Ocorrencia alterStatusOcorrencia(Ocorrencia statusOcorrencia) {
+        Ocorrencia ocorrencia = ocorrenciaReposity.findById(statusOcorrencia.getId()).orElseThrow(() -> new RuntimeException("Ocorrencia não encontrada"));
+
+        ocorrencia.setStatusOcorrencia(statusOcorrencia.getStatusOcorrencia());
+        ocorrencia.setDataAtualizacao(new Date(System.currentTimeMillis()));
+
+        return ocorrenciaReposity.save(ocorrencia);
+    }
+
 }
